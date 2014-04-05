@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MainScene.h"
+#import "SocketIOPacket.h"
 
 @interface ViewController ()
 
@@ -31,6 +32,28 @@
     
     // Present the scene.
     [skView presentScene:scene];
+    
+    SocketIO *sock = [[SocketIO alloc] initWithDelegate:self];
+    [sock connectToHost:@"localhost"
+                     onPort:3000
+                 withParams:[NSDictionary dictionaryWithObjectsAndKeys:@"1234", @"auth_token", nil]
+     ];
+    
+}
+
+- (void)socketIODidConnect:(SocketIO *)socket
+{
+    [socket sendMessage:@"connected!"];
+}
+
+- (void)socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet
+{
+    NSLog(@"didReceiveMessage >>> data: %@", packet.data);
+}
+
+- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
+{
+    NSLog(@"didReceiveEvent >>> data: %@", packet.data);
 }
 
 - (void)didReceiveMemoryWarning

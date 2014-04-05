@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import "SocketIO.h"
 
 @interface ViewController : UIViewController
+<SocketIODelegate>
 
 @end
