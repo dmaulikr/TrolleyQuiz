@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "SRWebSocket.h"
 
 @interface ViewController : UIViewController
-<SRWebSocketDelegate>
+<SRWebSocketDelegate, FBLoginViewDelegate>
 
 @end
