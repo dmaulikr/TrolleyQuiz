@@ -8,7 +8,12 @@
 
 #import "ViewController.h"
 #import "MainScene.h"
-#import "SocketIOPacket.h"
+
+#define DEVELOPMENT @"ws://localhost:3000/"
+#define STAGING @"ws://hacker-meetings.com/"
+#define PRODUCTION @"ws://172.16.201.22:3000/"
+
+#define WS_URL STAGING
 
 @interface ViewController ()
 
@@ -33,27 +38,29 @@
     // Present the scene.
     [skView presentScene:scene];
     
-    SocketIO *sock = [[SocketIO alloc] initWithDelegate:self];
-    [sock connectToHost:@"localhost"
-                     onPort:3000
-                 withParams:[NSDictionary dictionaryWithObjectsAndKeys:@"1234", @"auth_token", nil]
-     ];
+    SRWebSocket *ws = [[SRWebSocket alloc] initWithURLRequest:
+                       [NSURLRequest requestWithURL:[NSURL URLWithString:WS_URL]]];
+    ws.delegate = self;
+    [ws open];
     
 }
 
-- (void)socketIODidConnect:(SocketIO *)socket
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    [socket sendMessage:@"connected!"];
+    NSLog(@"message recieved:%@",message);
 }
-
-- (void)socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-    NSLog(@"didReceiveMessage >>> data: %@", packet.data);
+    NSLog(@"aa");
+    [webSocket send:@"ハットリのバーか"];
 }
-
-- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    NSLog(@"didReceiveEvent >>> data: %@", packet.data);
+    NSLog(@"error:%@",error);
+}
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+{
+    NSLog(@"close:%d reason:%@ wasClean:%d",code,reason,wasClean);
 }
 
 - (void)didReceiveMemoryWarning

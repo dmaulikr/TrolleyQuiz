@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
-#import "SocketIO.h"
+#import "SRWebSocket.h"
 
 @interface ViewController : UIViewController
-<SocketIODelegate>
+<SRWebSocketDelegate>
 
 @end

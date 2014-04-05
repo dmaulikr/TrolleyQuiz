@@ -48,7 +48,7 @@
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
-    NSLog(@"%f",currentTime);
+    //NSLog(@"%f",currentTime);
 }
 
 @end
