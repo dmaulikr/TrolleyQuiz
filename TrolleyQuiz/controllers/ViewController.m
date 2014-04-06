@@ -14,7 +14,10 @@
 //#define WS_URL @"ws://172.16.201.22:3000/"
 
 @interface ViewController ()
-
+{
+    SRWebSocket *_socket;
+    NSDictionary *_user;
+}
 @end
 
 @implementation ViewController
@@ -36,14 +39,10 @@
     // Present the scene.
     [skView presentScene:scene];
     
-    SRWebSocket *ws = [[SRWebSocket alloc] initWithURLRequest:
+    _socket = [[SRWebSocket alloc] initWithURLRequest:
                        [NSURLRequest requestWithURL:[NSURL URLWithString:WS_URL]]];
-    ws.delegate = self;
-    [ws open];
-    
-    FBLoginView *loginView = [[FBLoginView alloc] init];
-    loginView.delegate = self;
-    [self.view addSubview:loginView];
+    _socket.delegate = self;
+    [_socket open];
     
 }
 
@@ -51,6 +50,8 @@
                             user:(id<FBGraphUser>)user {
     NSLog(@"%@",user.id);
     NSLog(@"%@",user.name);
+    _user = @{@"user": @{ @"facebook": user.id, @"name": user.name }};
+    [self login:_socket withUser:_user];
 }
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
@@ -99,14 +100,29 @@
     }
 }
 
+- (void)login:(SRWebSocket *)socket withUser:(NSDictionary *)user
+{
+    NSError *error = nil;
+    NSData *data = nil;
+    if([NSJSONSerialization isValidJSONObject:user]){
+        data = [NSJSONSerialization dataWithJSONObject:user options:kNilOptions error:&error];
+        if(!error){
+            [socket send:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+        }else{
+            NSLog(@"error:%@",error);
+        }
+    }
+}
+
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
     NSLog(@"message recieved:%@",message);
 }
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-    NSLog(@"aa");
-    [webSocket send:@"ハットリのバーか"];
+    FBLoginView *loginView = [[FBLoginView alloc] init];
+    loginView.delegate = self;
+    [self.view addSubview:loginView];
 }
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
@@ -114,7 +130,7 @@
 }
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
 {
-    NSLog(@"close:%d reason:%@ wasClean:%d",code,reason,wasClean);
+    NSLog(@"close:%ld reason:%@ wasClean:%d",(long)code,reason,wasClean);
 }
 
 - (void)didReceiveMemoryWarning
