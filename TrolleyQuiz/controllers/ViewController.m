@@ -9,9 +9,9 @@
 #import "ViewController.h"
 #import "MainScene.h"
 
-#define WS_URL @"ws://localhost:3000/"
-//#define WS_URL @"ws://hacker-meetings.com/"
-//#define WS_URL @"ws://172.16.201.22:3000/"
+//#define WS_URL @"ws://localhost:8081/"
+#define WS_URL @"ws://donuts.hacker-meetings.com:8081/"
+//#define WS_URL @"ws://172.16.201.22:8081/"
 
 @interface ViewController ()
 {
