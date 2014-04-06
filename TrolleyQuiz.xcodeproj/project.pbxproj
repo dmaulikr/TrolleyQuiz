@@ -21,6 +21,7 @@
 		9721AA4618EF83750001DC69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721AA2518EF83750001DC69 /* UIKit.framework */; };
 		9721AA4E18EF83750001DC69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9721AA4C18EF83750001DC69 /* InfoPlist.strings */; };
 		9721AA5018EF83750001DC69 /* TrolleyQuizTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9721AA4F18EF83750001DC69 /* TrolleyQuizTests.m */; };
+		9721AA5A18F0F04D0001DC69 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721AA5918F0F04D0001DC69 /* CoreMotion.framework */; };
 		EB87746EB2B949EDA1DB9410 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5980299D2B7499D8FED0890 /* libPods.a */; };
 		ECC1CF0F18EF9DF600D51FFB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC1CF0E18EF9DF600D51FFB /* ViewController.m */; };
 		ECC1CF6118EF9F1A00D51FFB /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC1CF6018EF9F1A00D51FFB /* MainScene.m */; };
@@ -57,6 +58,7 @@
 		9721AA4B18EF83750001DC69 /* TrolleyQuizTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TrolleyQuizTests-Info.plist"; sourceTree = "<group>"; };
 		9721AA4D18EF83750001DC69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9721AA4F18EF83750001DC69 /* TrolleyQuizTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrolleyQuizTests.m; sourceTree = "<group>"; };
+		9721AA5918F0F04D0001DC69 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		B5980299D2B7499D8FED0890 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC1CF0D18EF9DF600D51FFB /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		ECC1CF0E18EF9DF600D51FFB /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9721AA5A18F0F04D0001DC69 /* CoreMotion.framework in Frameworks */,
 				9721AA2418EF83750001DC69 /* CoreGraphics.framework in Frameworks */,
 				9721AA2618EF83750001DC69 /* UIKit.framework in Frameworks */,
 				9721AA2218EF83750001DC69 /* Foundation.framework in Frameworks */,
@@ -113,6 +116,7 @@
 		9721AA2018EF83750001DC69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9721AA5918F0F04D0001DC69 /* CoreMotion.framework */,
 				9721AA2118EF83750001DC69 /* Foundation.framework */,
 				9721AA2318EF83750001DC69 /* CoreGraphics.framework */,
 				9721AA2518EF83750001DC69 /* UIKit.framework */,

@@ -7,6 +7,7 @@
 //
 
 #import "MainScene.h"
+#import <CoreMotion/CoreMotion.h>
 
 @implementation MainScene
 
@@ -24,6 +25,16 @@
                                        CGRectGetMidY(self.frame));
         
         [self addChild:myLabel];
+        
+        CMMotionManager *motionManager = [[CMMotionManager alloc] init];
+        
+        if(motionManager.accelerometerAvailable){
+            motionManager.accelerometerUpdateInterval = 0.3;
+            [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *data, NSError *error) {
+                NSLog(@"%f %f %f",data.acceleration.x,data.acceleration.y,data.acceleration.z);
+            }];
+        }
+        
     }
     return self;
 }
