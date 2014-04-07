@@ -1,13 +1,16 @@
 PODS:
   - Facebook-iOS-SDK (3.13.0)
+  - MGBox2 (2.0.0)
   - SocketRocket (0.3.1-beta2)
 
 DEPENDENCIES:
   - Facebook-iOS-SDK
+  - MGBox2
   - SocketRocket
 
 SPEC CHECKSUMS:
   Facebook-iOS-SDK: 5788541337dc88265bc940cb5ffb05915f9b64e3
+  MGBox2: 7c09e36c2271f9af16fdb5141a0ca554ecee4d8d
   SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
 
 COCOAPODS: 0.31.1

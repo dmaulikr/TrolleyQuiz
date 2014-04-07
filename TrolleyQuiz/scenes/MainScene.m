@@ -7,10 +7,11 @@
 //
 
 #import "MainScene.h"
-#import <CoreMotion/CoreMotion.h>
 
 @implementation MainScene
-
+{
+    CMMotionManager *_motionManager;
+}
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -26,13 +27,11 @@
         
         [self addChild:myLabel];
         
-        CMMotionManager *motionManager = [[CMMotionManager alloc] init];
+        _motionManager = [[CMMotionManager alloc] init];
         
-        if(motionManager.accelerometerAvailable){
-            motionManager.accelerometerUpdateInterval = 0.3;
-            [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *data, NSError *error) {
-                NSLog(@"%f %f %f",data.acceleration.x,data.acceleration.y,data.acceleration.z);
-            }];
+        if(_motionManager.accelerometerAvailable){
+            _motionManager.accelerometerUpdateInterval = 0.3;
+            [_motionManager startAccelerometerUpdates];
         }
         
     }
@@ -46,12 +45,9 @@
         CGPoint location = [touch locationInNode:self];
         
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+        sprite.name = @"player";
         
         sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
         
         [self addChild:sprite];
     }
@@ -60,6 +56,15 @@
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     //NSLog(@"%f",currentTime);
+    
+    float x = _motionManager.accelerometerData.acceleration.x * 2;
+    float y = _motionManager.accelerometerData.acceleration.y * 2 + 0.15;
+    
+    SKSpriteNode *player = (SKSpriteNode *)[self childNodeWithName:@"player"];
+    if(player){
+        player.position = CGPointMake(player.position.x + x, player.position.y + y);
+        NSLog(@"%f %f",x,y);
+    }
 }
 
 @end

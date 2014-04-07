@@ -8,12 +8,14 @@
 
 #import "ViewController.h"
 #import "MainScene.h"
+#import "LobbyView.h"
 
 //#define WS_URL @"ws://localhost:8081/"
 #define WS_URL @"ws://donuts.hacker-meetings.com:8081/"
 //#define WS_URL @"ws://172.16.201.22:8081/"
 
 @interface ViewController ()
+<LobbyViewDelegate>
 {
     SRWebSocket *_socket;
     NSDictionary *_user;
@@ -27,17 +29,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    
-    // Create and configure the scene.
-    SKScene * scene = [MainScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
+    LobbyView *lobbyView = [[LobbyView alloc] initWithFrame:CGRectMake(0, 120, 320, [UIScreen mainScreen].bounds.size.height-120)];
+    lobbyView.delegate = self;
+    [self.view addSubview:lobbyView];
     
     _socket = [[SRWebSocket alloc] initWithURLRequest:
                        [NSURLRequest requestWithURL:[NSURL URLWithString:WS_URL]]];
@@ -46,11 +40,24 @@
     
 }
 
+- (void)rideTrolley:(NSDictionary *)trolley
+{
+    NSDictionary *sendData = @{@"ride_trolley": trolley, @"user_id": _user[@"_id"]};
+    NSError *error = nil;
+    NSData *data = nil;
+    if([NSJSONSerialization isValidJSONObject:sendData]){
+        data = [NSJSONSerialization dataWithJSONObject:sendData options:kNilOptions error:&error];
+        if(!error){
+            [_socket send:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+        }else{
+            NSLog(@"error:%@",error);
+        }
+    }
+}
+
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-    NSLog(@"%@",user.id);
-    NSLog(@"%@",user.name);
-    _user = @{@"user": @{ @"facebook": user.id, @"name": user.name }};
+    _user = @{@"login": @{ @"facebook": user.id, @"name": user.name }};
     [self login:_socket withUser:_user];
 }
 
@@ -114,9 +121,63 @@
     }
 }
 
+- (void)get_trolleys:(SRWebSocket *)socket
+{
+    NSDictionary *message = @{@"get_trolleys": [NSNull null]};
+    NSError *error = nil;
+    NSData *data = nil;
+    if([NSJSONSerialization isValidJSONObject:message]){
+        data = [NSJSONSerialization dataWithJSONObject:message options:kNilOptions error:&error];
+        if(!error){
+            [socket send:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+        }else{
+            NSLog(@"error:%@",error);
+        }
+    }
+}
+
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    NSLog(@"message recieved:%@",message);
+    NSData *jsonData = [message dataUsingEncoding:NSUnicodeStringEncoding];
+    NSError *error;
+    id json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                     options:NSJSONReadingAllowFragments
+                                                       error:&error];
+    
+    if([json isKindOfClass:[NSArray class]]){
+        NSLog(@"array recieved:%@",json);
+        
+    }else if([json isKindOfClass:[NSDictionary class]]){
+        NSLog(@"json recieved:%@",json);
+        if(json[@"user"]){
+            NSDictionary *user = json[@"user"];
+            _user = user;
+            
+            [self get_trolleys:webSocket];
+            
+        }else if(json[@"trolleys"]){
+            
+            NSArray *trolleys = json[@"trolleys"];
+            NSLog(@"trolleys:%@",trolleys);
+        }else if(json[@"trolley"]){
+            for (UIView *view in self.view.subviews){
+                [view removeFromSuperview];
+            }
+            
+            // Configure the view.
+            SKView * skView = (SKView *)self.view;
+            skView.showsFPS = YES;
+            skView.showsNodeCount = YES;
+            
+            // Create and configure the scene.
+            SKScene *mainScene = [MainScene sceneWithSize:skView.bounds.size];
+            mainScene.scaleMode = SKSceneScaleModeAspectFill;
+            
+            // Present the scene.
+            [skView presentScene:mainScene];
+        }
+        
+    }
 }
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {

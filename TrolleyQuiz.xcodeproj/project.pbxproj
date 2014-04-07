@@ -23,6 +23,8 @@
 		9721AA5018EF83750001DC69 /* TrolleyQuizTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9721AA4F18EF83750001DC69 /* TrolleyQuizTests.m */; };
 		9721AA5A18F0F04D0001DC69 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721AA5918F0F04D0001DC69 /* CoreMotion.framework */; };
 		EB87746EB2B949EDA1DB9410 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5980299D2B7499D8FED0890 /* libPods.a */; };
+		ECA3B1C318F27EE700ED3F53 /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA3B1C218F27EE700ED3F53 /* ProfileView.m */; };
+		ECA3B1C618F27F6E00ED3F53 /* LobbyView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA3B1C518F27F6E00ED3F53 /* LobbyView.m */; };
 		ECC1CF0F18EF9DF600D51FFB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC1CF0E18EF9DF600D51FFB /* ViewController.m */; };
 		ECC1CF6118EF9F1A00D51FFB /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC1CF6018EF9F1A00D51FFB /* MainScene.m */; };
 		ECC1CF6418EFA12C00D51FFB /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = ECC1CF6318EFA12C00D51FFB /* Spaceship.png */; };
@@ -60,6 +62,10 @@
 		9721AA4F18EF83750001DC69 /* TrolleyQuizTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrolleyQuizTests.m; sourceTree = "<group>"; };
 		9721AA5918F0F04D0001DC69 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		B5980299D2B7499D8FED0890 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECA3B1C118F27EE700ED3F53 /* ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileView.h; sourceTree = "<group>"; };
+		ECA3B1C218F27EE700ED3F53 /* ProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileView.m; sourceTree = "<group>"; };
+		ECA3B1C418F27F6E00ED3F53 /* LobbyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyView.h; sourceTree = "<group>"; };
+		ECA3B1C518F27F6E00ED3F53 /* LobbyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyView.m; sourceTree = "<group>"; };
 		ECC1CF0D18EF9DF600D51FFB /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		ECC1CF0E18EF9DF600D51FFB /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		ECC1CF5F18EF9F1A00D51FFB /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 			children = (
 				ECA4B6C418F10D3700692517 /* libs */,
 				ECC1CF0C18EF9DF600D51FFB /* controllers */,
+				ECA3B1C018F27ED400ED3F53 /* views */,
 				ECC1CF5E18EF9F1A00D51FFB /* scenes */,
 				ECC1CF6218EFA12300D51FFB /* images */,
 				9721AA3C18EF83750001DC69 /* Images.xcassets */,
@@ -170,6 +177,17 @@
 				9721AA4C18EF83750001DC69 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ECA3B1C018F27ED400ED3F53 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				ECA3B1C118F27EE700ED3F53 /* ProfileView.h */,
+				ECA3B1C218F27EE700ED3F53 /* ProfileView.m */,
+				ECA3B1C418F27F6E00ED3F53 /* LobbyView.h */,
+				ECA3B1C518F27F6E00ED3F53 /* LobbyView.m */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		ECA4B6C418F10D3700692517 /* libs */ = {
@@ -342,10 +360,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECA3B1C318F27EE700ED3F53 /* ProfileView.m in Sources */,
 				ECC1CF0F18EF9DF600D51FFB /* ViewController.m in Sources */,
 				ECC1CF6118EF9F1A00D51FFB /* MainScene.m in Sources */,
 				9721AA3218EF83750001DC69 /* AppDelegate.m in Sources */,
 				9721AA2E18EF83750001DC69 /* main.m in Sources */,
+				ECA3B1C618F27F6E00ED3F53 /* LobbyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
