@@ -39,14 +39,11 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
-    
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
         
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"walk"];
         sprite.name = @"player";
-        
         sprite.position = location;
         
         [self addChild:sprite];
@@ -54,8 +51,7 @@
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
-    //NSLog(@"%f",currentTime);
+    NSLog(@"%f",currentTime);
     
     float x = _motionManager.accelerometerData.acceleration.x * 2;
     float y = _motionManager.accelerometerData.acceleration.y * 2 + 0.15;
@@ -63,7 +59,6 @@
     SKSpriteNode *player = (SKSpriteNode *)[self childNodeWithName:@"player"];
     if(player){
         player.position = CGPointMake(player.position.x + x, player.position.y + y);
-        NSLog(@"%f %f",x,y);
     }
 }
 
